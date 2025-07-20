@@ -14,30 +14,31 @@ import java.util.UUID;
 @RequestMapping(path = "/api/brand")
 @AllArgsConstructor
 public class BrandController {
-    private final BrandService typeService;
+    private final BrandService brandService;
 
     @PostMapping
     public ResponseEntity<BrandDto> createType(@RequestBody BrandDto typeDto){
-        return ResponseEntity.ok(typeService.createType(typeDto));
+        return ResponseEntity.ok(brandService.createType(typeDto));
     }
 
     @GetMapping
     public ResponseEntity<List<BrandDto>> getTypes(){
-        return ResponseEntity.ok(typeService.listBrands());
+        return ResponseEntity.ok(brandService.listBrands());
     }
 
     @PutMapping("/{brandId}")
     public  ResponseEntity<BrandDto> updateType(@RequestBody BrandDto typeDto,@PathVariable UUID brandId){
-        return ResponseEntity.ok(typeService.updateBrand(typeDto,brandId));
+        return ResponseEntity.ok(brandService.updateBrand(typeDto,brandId));
     }
 
     @GetMapping("/{brandId}")
     public ResponseEntity<BrandDto> getTypeById(@PathVariable UUID brandId){
-        return  ResponseEntity.ok(typeService.getBrandById(brandId));
+        return  ResponseEntity.ok(brandService.getBrandById(brandId));
     }
 
     @DeleteMapping("/{brandId}")
     public ResponseEntity<Void> deleteType(@PathVariable UUID brandId){
+        brandService.deleteBrand(brandId);
         return ResponseEntity.noContent().build();
     }
 }
